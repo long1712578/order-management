@@ -13,6 +13,9 @@ namespace OrderManagement.Infrastructure.Data.Configurations
             builder.Property(o => o.OrderDate)
                 .IsRequired();
 
+            builder.Property(oi => oi.TotalAmount)
+                .HasColumnType("decimal(18,2)");
+
             builder.HasMany(o => o.OrderItems)
                 .WithOne(oi => oi.Order)
                 .HasForeignKey(oi => oi.OrderId);
