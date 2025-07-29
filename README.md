@@ -1,6 +1,6 @@
-# 🧾 Order Management System - Clean Architecture (.NET 8)
+# 🧾 Order Management - Clean Architecture (.NET 8)
 
-A professional **Order Management System API**, built with **ASP.NET Core 8** and **Entity Framework Core 8** using **Clean Architecture**, designed to demonstrate backend capability including database design, RESTful APIs, validation, layered architecture, and maintainable code.
+A professional **Order Management API**, built with **ASP.NET Core 8** and **Entity Framework Core 8** using **Clean Architecture**, designed to demonstrate backend capability including database design, RESTful APIs, validation, layered architecture, and maintainable code.
 
 ---
 
@@ -88,4 +88,5 @@ This separation improves **testability**, **scalability**, and **maintainability
 ### Step 1: Clone the Repository
 
 ```bash
-
+git clone https://github.com/long1712578/order-management.git
+cd order-management
