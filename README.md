@@ -90,3 +90,42 @@ This separation improves **testability**, **scalability**, and **maintainability
 ```bash
 git clone https://github.com/long1712578/order-management.git
 cd order-management
+### Step 2: Apply Database Migration
+
+> Áp dụng cho cả người dùng Visual Studio và dòng lệnh `dotnet ef`.
+
+#### 📌 Cấu hình chuỗi kết nối
+Kiểm tra lại `appsettings.json` trong dự án `OrderManagement.Api` đã khai báo đúng connection string:
+
+```json
+"ConnectionStrings": {
+  "Default": "Server=.;Database=OrderManagementDb;Trusted_Connection=True;Encrypt=False"
+}
+```
+
+#### ✅ Cách 1: Dùng Package Manager Console (Visual Studio)
+
+1. Mở **Tools > NuGet Package Manager > Package Manager Console**
+2. Đảm bảo `Default project` là `OrderManagement.Infrastructure`
+3. Chạy lần lượt:
+
+```powershell
+Add-Migration InitialCreate
+Update-Database
+```
+
+#### ✅ Cách 2: Dùng .NET CLI
+
+```bash
+dotnet ef migrations add InitialCreate --project OrderManagement.Infrastructure --startup-project OrderManagement.Api
+dotnet ef database update --project OrderManagement.Infrastructure --startup-project OrderManagement.Api
+```
+
+Sau khi thực hiện thành công, cơ sở dữ liệu `OrderManagementDb` sẽ được tạo trong SQL Server chứa đầy đủ bảng (Customers, Products, Orders, OrderItems).
+
+### Step 3: Run the API
+
+```bash
+cd OrderManagement.Api
+dotnet run
+```
