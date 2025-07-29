@@ -90,6 +90,7 @@ This separation improves **testability**, **scalability**, and **maintainability
 ```bash
 git clone https://github.com/long1712578/order-management.git
 cd order-management
+```
 ### Step 2: Apply Database Migration
 
 > Áp dụng cho cả người dùng Visual Studio và dòng lệnh `dotnet ef`.
