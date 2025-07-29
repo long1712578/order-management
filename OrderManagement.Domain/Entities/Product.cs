@@ -11,5 +11,6 @@ namespace OrderManagement.Domain.Entities
 
         [Range(0, double.MaxValue)]
         public decimal Price { get; set; }
+        public ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
     }
 }

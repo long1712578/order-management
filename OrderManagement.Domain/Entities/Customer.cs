@@ -14,5 +14,7 @@ namespace OrderManagement.Domain.Entities
 
         [MaxLength(20)]
         public string? PhoneNumber { get; set; }
+
+        public ICollection<Order> Orders { get; set; } = new List<Order>();
     }
 }
