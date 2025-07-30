@@ -3,6 +3,7 @@ using OrderManagement.Application.DTOs;
 using OrderManagement.Domain.Entities;
 using OrderManagement.Domain.Interfaces;
 using OrderManagement.Infrastructure.Data;
+using OrderManagement.SharedKernel.Pagination;
 
 namespace OrderManagement.Infrastructure.Repositories
 {
@@ -22,13 +23,21 @@ namespace OrderManagement.Infrastructure.Repositories
             await context.SaveChangesAsync();
         }
 
-        public async Task<List<Customer>> GetAllAsync(int pageNumber, int pageSize)
+        public async Task<PagedResult<Customer>> GetAllAsync(int pageNumber, int pageSize)
         {
-            return await context.Customers
+            var customers = await context.Customers
                         .AsNoTracking()
                         .Skip((pageNumber - 1) * pageSize)
                         .Take(pageSize)
                         .ToListAsync();
+
+            return new PagedResult<Customer>
+            {
+                Items = customers,
+                PageIndex = pageNumber,
+                PageSize = pageSize,
+                TotalItems = await context.Customers.CountAsync()
+            };
         }
 
         public async Task<Customer?> GetByIdAsync(int customerId)

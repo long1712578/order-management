@@ -4,6 +4,7 @@ using OrderManagement.Application.DTOs;
 using OrderManagement.Application.Interfaces;
 using OrderManagement.Domain.Entities;
 using OrderManagement.Domain.Interfaces;
+using OrderManagement.SharedKernel.Pagination;
 
 namespace OrderManagement.Application.Services
 {
@@ -51,7 +52,7 @@ namespace OrderManagement.Application.Services
             return mapper.Map<OrderDto>(order);
         }
 
-        public async Task<List<OrderDto>> GetOrdersAsync(OrderFilterDto dto)
+        public async Task<PagedResult<OrderDto>> GetOrdersAsync(OrderFilterDto dto)
         {
             if(dto.CustomerId.HasValue)
             {
@@ -68,9 +69,16 @@ namespace OrderManagement.Application.Services
                 PageSize = dto.PageSize
             };
 
-            var orders = await orderRepo.GetFilteredOrdersAsync(query);
+            var result = await orderRepo.GetFilteredOrdersAsync(query);
+            var orderDtos = mapper.Map<List<OrderDto>>(result.Items);
 
-            return mapper.Map<List<OrderDto>>(orders);
+            return new PagedResult<OrderDto>
+            {
+                Items = orderDtos,
+                TotalItems = result.TotalItems,
+                PageIndex = result.PageIndex,
+                PageSize = result.PageSize
+            };
         }
     }
 }

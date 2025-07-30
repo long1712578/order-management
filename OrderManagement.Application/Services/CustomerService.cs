@@ -4,6 +4,7 @@ using OrderManagement.Application.DTOs;
 using OrderManagement.Application.Interfaces;
 using OrderManagement.Domain.Entities;
 using OrderManagement.Domain.Interfaces;
+using OrderManagement.SharedKernel.Pagination;
 
 namespace OrderManagement.Application.Services
 {
@@ -34,11 +35,18 @@ namespace OrderManagement.Application.Services
             return mapper.Map<CustomerDto>(customer);
         }
 
-        public async Task<List<CustomerDto>> GetCustomersAsync(int pageIndex, int pageSize)
+        public async Task<PagedResult<CustomerDto>> GetCustomersAsync(int pageIndex, int pageSize)
         {
-            var customers = await repository.GetAllAsync(pageIndex, pageSize);
+            var result = await repository.GetAllAsync(pageIndex, pageSize);
+            var customerDtos = mapper.Map<List<CustomerDto>>(result.Items);
 
-            return mapper.Map<List<CustomerDto>>(customers);
+            return new PagedResult<CustomerDto>
+            {
+                Items = customerDtos,
+                TotalItems = result.TotalItems,
+                PageIndex = result.PageIndex,
+                PageSize = result.PageSize
+            };
         }
 
         public async Task UpdateCustomerAsync(UpdateCustomerDto dto, int customerId)

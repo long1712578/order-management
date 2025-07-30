@@ -2,6 +2,7 @@
 using OrderManagement.Domain.Entities;
 using OrderManagement.Domain.Interfaces;
 using OrderManagement.Infrastructure.Data;
+using OrderManagement.SharedKernel.Pagination;
 
 namespace OrderManagement.Infrastructure.Repositories
 {
@@ -26,7 +27,7 @@ namespace OrderManagement.Infrastructure.Repositories
                 .FirstOrDefaultAsync(o => o.OrderId == orderId);
         }
 
-        public async Task<List<Order>> GetFilteredOrdersAsync(OrderQuery filter)
+        public async Task<PagedResult<Order>> GetFilteredOrdersAsync(OrderQuery filter)
         {
             var query = context.Orders
                 .Include(o => o.Customer)
@@ -45,11 +46,19 @@ namespace OrderManagement.Infrastructure.Repositories
 
             var total = await query.CountAsync();
 
-            return await query
+            var orders = await query
                 .AsNoTracking()
                 .Skip((filter.PageNumber - 1) * filter.PageSize)
                 .Take(filter.PageSize)
                 .ToListAsync();
+
+            return new PagedResult<Order>
+            {
+                Items = orders,
+                TotalItems = total,
+                PageIndex = filter.PageNumber,
+                PageSize = filter.PageSize
+            };
         }
     }
 }
