@@ -5,5 +5,7 @@ namespace OrderManagement.Domain.Interfaces
     public interface IOrderRepository
     {
         Task<int> AddAsync(Order order);
+        Task<List<Order>> GetFilteredOrdersAsync(OrderQuery filter);
+
     }
 }

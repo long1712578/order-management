@@ -8,11 +8,6 @@ namespace OrderManagement.Api.Controllers
     [Route("api/orders")]
     public class OrderController(IOrderService service) : ControllerBase
     {
-        [HttpGet]
-        public async Task<IActionResult> GetOrders(int pageIndex = 1, int pageSize = 10)
-        {
-            return Ok();
-        }
 
         [HttpPost]
         public async Task<IActionResult> CreateOrder([FromBody] CreateOrderDto dto)
@@ -25,13 +20,22 @@ namespace OrderManagement.Api.Controllers
             return CreatedAtAction(nameof(GetOrderById), new { id = orderId }, null);
 
         }
+        [HttpGet]
+        public async Task<IActionResult> GetOrders([FromQuery] OrderFilterDto dto)
+        {
+            if (dto.PageNumber < 1 || dto.PageSize < 1)
+            {
+                return BadRequest("Page index and page size must be greater than zero.");
+            }
+            var orders = await service.GetOrdersAsync(dto);
+            return Ok(orders);
+        }
 
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(CustomerDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<CustomerDto>> GetOrderById(int id)
+        public async Task<ActionResult<OrderDto>> GetOrderById(int id)
         {
-
             return Ok();
         }
     }

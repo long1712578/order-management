@@ -1,4 +1,5 @@
-﻿using OrderManagement.Application.Common.Exceptions;
+﻿using AutoMapper;
+using OrderManagement.Application.Common.Exceptions;
 using OrderManagement.Application.DTOs;
 using OrderManagement.Application.Interfaces;
 using OrderManagement.Domain.Entities;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace OrderManagement.Application.Services
 {
-    public class OrderService(IOrderRepository orderRepo, IProductRepository productRepo, ICustomerRepository customerRepo) : IOrderService
+    public class OrderService(IOrderRepository orderRepo, IProductRepository productRepo, ICustomerRepository customerRepo, IMapper mapper) : IOrderService
     {
         public async Task<int> CreateOrderAsync(CreateOrderDto dto)
         {
@@ -45,9 +46,30 @@ namespace OrderManagement.Application.Services
             return await orderRepo.AddAsync(order);
         }
 
-        public Task DeleteOrderAsync(int id)
+        public Task<OrderDto?> GetOrderByIdAsync(int orderId)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<List<OrderDto>> GetOrdersAsync(OrderFilterDto dto)
+        {
+            if(dto.CustomerId.HasValue)
+            {
+                var customer = await customerRepo.GetByIdAsync((int)dto.CustomerId);
+                if (customer == null) throw new NotFoundException("Customer not found");
+            }    
+
+            var query = new OrderQuery
+            {
+                CustomerId = dto.CustomerId,
+                FromDate = dto.FromDate,
+                ToDate = dto.ToDate,
+                PageNumber = dto.PageNumber,
+                PageSize = dto.PageSize
+            };
+
+            var orders = await orderRepo.GetFilteredOrdersAsync(query);
+            return mapper.Map<List<OrderDto>>(orders);
         }
     }
 }

@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace OrderManagement.Application.DTOs
 {
-    public class OrderDetailDto
+    public class CreateOrderItemDto
     {
+        public int ProductId { get; set; }
+        public int Quantity { get; set; }
     }
 }

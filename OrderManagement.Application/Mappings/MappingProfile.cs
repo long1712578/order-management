@@ -16,6 +16,16 @@ namespace OrderManagement.Application.Mappings
 
             CreateMap<Product, ProductDto>();
             CreateMap<ProductDto, Product>();
+
+            CreateMap<OrderDto, Order>();
+            CreateMap<Order, OrderDto>()
+                .ForMember(dest => dest.CustomerName,
+                           opt => opt.MapFrom(src => src.Customer.FullName)); ;
+
+            CreateMap<OrderItemDto, OrderItem>();
+            CreateMap<OrderItem, OrderItemDto>()
+                .ForMember(dest => dest.ProductName,
+                           opt => opt.MapFrom(src => src.Product.Name)); ;
         }
     }
 }

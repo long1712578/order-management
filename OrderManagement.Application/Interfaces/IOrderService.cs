@@ -5,7 +5,8 @@ namespace OrderManagement.Application.Interfaces
     public interface IOrderService
     {
         Task<int> CreateOrderAsync(CreateOrderDto dto);
-        Task DeleteOrderAsync(int id);
+        Task<List<OrderDto>> GetOrdersAsync(OrderFilterDto dto);
+        Task<OrderDto?> GetOrderByIdAsync(int orderId);
 
     }
 }
