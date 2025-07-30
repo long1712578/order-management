@@ -13,6 +13,9 @@ namespace OrderManagement.Application.Mappings
             CreateMap<CreateCustomerDto, Customer>();
             CreateMap<UpdateCustomerDto, Customer>();
             CreateMap<Customer, UpdateCustomerDto>();
+
+            CreateMap<Product, ProductDto>();
+            CreateMap<ProductDto, Product>();
         }
     }
 }
