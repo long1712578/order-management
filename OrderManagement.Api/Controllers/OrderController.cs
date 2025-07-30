@@ -36,7 +36,8 @@ namespace OrderManagement.Api.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<OrderDto>> GetOrderById(int id)
         {
-            return Ok();
+            var order = await service.GetOrderByIdAsync(id);
+            return Ok(order);
         }
     }
 }

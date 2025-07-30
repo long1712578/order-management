@@ -7,6 +7,5 @@ namespace OrderManagement.Application.Interfaces
         Task<int> CreateOrderAsync(CreateOrderDto dto);
         Task<List<OrderDto>> GetOrdersAsync(OrderFilterDto dto);
         Task<OrderDto?> GetOrderByIdAsync(int orderId);
-
     }
 }

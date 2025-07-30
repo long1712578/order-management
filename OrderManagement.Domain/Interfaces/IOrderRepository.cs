@@ -6,6 +6,6 @@ namespace OrderManagement.Domain.Interfaces
     {
         Task<int> AddAsync(Order order);
         Task<List<Order>> GetFilteredOrdersAsync(OrderQuery filter);
-
+        Task<Order?> GetByIdAsync(int orderId);
     }
 }

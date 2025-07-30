@@ -4,11 +4,6 @@ using OrderManagement.Application.DTOs;
 using OrderManagement.Application.Interfaces;
 using OrderManagement.Domain.Entities;
 using OrderManagement.Domain.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OrderManagement.Application.Services
 {
@@ -46,9 +41,13 @@ namespace OrderManagement.Application.Services
             return await orderRepo.AddAsync(order);
         }
 
-        public Task<OrderDto?> GetOrderByIdAsync(int orderId)
+        public async Task<OrderDto?> GetOrderByIdAsync(int orderId)
         {
-            throw new NotImplementedException();
+            var order = await orderRepo.GetByIdAsync(orderId);
+
+            if (order == null) throw new NotFoundException("Order not found");
+
+            return mapper.Map<OrderDto>(order);
         }
 
         public async Task<List<OrderDto>> GetOrdersAsync(OrderFilterDto dto)

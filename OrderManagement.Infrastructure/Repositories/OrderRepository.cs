@@ -15,6 +15,16 @@ namespace OrderManagement.Infrastructure.Repositories
 
         }
 
+        public async Task<Order?> GetByIdAsync(int orderId)
+        {
+            return await context.Orders
+                .Include(o => o.Customer)
+                .Include(o => o.OrderItems)
+                .ThenInclude(i => i.Product)
+                .FirstOrDefaultAsync(o => o.OrderId == orderId);
+
+        }
+
         public async Task<List<Order>> GetFilteredOrdersAsync(OrderQuery filter)
         {
             var query = context.Orders
