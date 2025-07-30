@@ -13,6 +13,9 @@ namespace OrderManagement.Application.Services
         public async Task<Customer> CreateCustomerAsync(CreateCustomerDto dto)
         {
             var customer = mapper.Map<Customer>(dto);
+            if (customer == null)
+                throw new NotFoundException("Mapping result is null");
+
 
             return await  repository.AddAsync(customer);
         }
