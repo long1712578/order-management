@@ -34,6 +34,8 @@ namespace OrderManagement.Api.Controllers
         }
 
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(CustomerDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<CustomerDto>> GetCustomerById(int id)
         {
             var customer = await service.GetCustomerByIdAsync(id);
@@ -44,7 +46,7 @@ namespace OrderManagement.Api.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateCustomer(int id, [FromBody] UpdateCustomerDto dto)
         {
-            await service.UpdateAsync(dto, id);
+            await service.UpdateCustomerAsync(dto, id);
 
             return NoContent();
         }
@@ -52,7 +54,7 @@ namespace OrderManagement.Api.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCustomer(int id)
         {
-            await service.DeleteAsync(id);
+            await service.DeleteCustomerAsync(id);
 
             return NoContent();
         }

@@ -8,7 +8,7 @@ namespace OrderManagement.Application.Interfaces
         Task<List<CustomerDto>> GetCustomersAsync(int pageIndex, int pageSize);
         Task<CustomerDto?> GetCustomerByIdAsync(int customerId);
         Task<Customer> CreateCustomerAsync(CreateCustomerDto dto);
-        Task UpdateAsync(UpdateCustomerDto dto, int customerId);
-        Task DeleteAsync(int customerId);
+        Task UpdateCustomerAsync(UpdateCustomerDto dto, int customerId);
+        Task DeleteCustomerAsync(int customerId);
     }
 }

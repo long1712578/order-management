@@ -1,11 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using OrderManagement.Api.Middleware;
 using OrderManagement.Application.Interfaces;
-using OrderManagement.Application.Mappings;
 using OrderManagement.Application.Services;
 using OrderManagement.Domain.Interfaces;
 using OrderManagement.Infrastructure.Data;
 using OrderManagement.Infrastructure.Repositories;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +30,20 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+// 
+using var scope = app.Services.CreateScope();
+var services = scope.ServiceProvider;
+try
+{
+    var context = services.GetRequiredService<AppDbContext>();
+    await context.Database.MigrateAsync();
+    Log.Information("Seeding data...");
+    await SeedData.SeedProductsAsync(context);
+}
+catch (Exception ex)
+{
+    Log.Error(ex, "An error occurred while seeding the database");
+}
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

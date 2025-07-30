@@ -16,7 +16,7 @@ namespace OrderManagement.Application.Services
             return await  repository.AddAsync(customer);
         }
 
-        public async Task DeleteAsync(int customerId)
+        public async Task DeleteCustomerAsync(int customerId)
         {
             var customer = await repository.GetByIdAsync(customerId);
             if (customer == null) throw new NotFoundException("Not found");
@@ -39,7 +39,7 @@ namespace OrderManagement.Application.Services
             return mapper.Map<List<CustomerDto>>(customers);
         }
 
-        public async Task UpdateAsync(UpdateCustomerDto dto, int customerId)
+        public async Task UpdateCustomerAsync(UpdateCustomerDto dto, int customerId)
         {
             var customer = await repository.GetByIdAsync(customerId);
             if (customer == null) throw new NotFoundException("Not found");

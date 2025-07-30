@@ -1,9 +1,16 @@
-﻿namespace OrderManagement.Application.DTOs
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace OrderManagement.Application.DTOs
 {
     public class UpdateCustomerDto
     {
+        [Required, MaxLength(100)]
         public string FullName { get; set; } = default!;
+
+        [Required, MaxLength(100), EmailAddress]
         public string Email { get; set; } = default!;
-        public string PhoneNumber { get; set; } = default!;
+
+        [MaxLength(20)]
+        public string? PhoneNumber { get; set; }
     }
 }
