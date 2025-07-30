@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using OrderManagement.Application.Common.Exceptions;
 using OrderManagement.Application.DTOs;
 using OrderManagement.Application.Interfaces;
 using OrderManagement.Domain.Entities;
@@ -15,9 +16,19 @@ namespace OrderManagement.Application.Services
             return await  repository.AddAsync(customer);
         }
 
+        public async Task DeleteAsync(int customerId)
+        {
+            var customer = await repository.GetByIdAsync(customerId);
+            if (customer == null) throw new NotFoundException("Not found");
+
+            await repository.DeleteAsync(customer);
+        }
+
         public async Task<CustomerDto?> GetCustomerByIdAsync(int customerId)
         {
             var customer = await repository.GetByIdAsync(customerId);
+
+            if (customer == null) throw new NotFoundException("Not found");
 
             return mapper.Map<CustomerDto>(customer);
         }
@@ -26,6 +37,18 @@ namespace OrderManagement.Application.Services
         {
             var customers = await repository.GetAllAsync(pageIndex, pageSize);
             return mapper.Map<List<CustomerDto>>(customers);
+        }
+
+        public async Task UpdateAsync(UpdateCustomerDto dto, int customerId)
+        {
+            var customer = await repository.GetByIdAsync(customerId);
+            if (customer == null) throw new NotFoundException("Not found");
+
+            customer.FullName = dto.FullName;
+            customer.Email = dto.Email;
+            customer.PhoneNumber = dto.PhoneNumber;
+
+            await repository.UpdateAsync(customer);
         }
     }
 }

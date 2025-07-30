@@ -32,17 +32,29 @@ namespace OrderManagement.Api.Controllers
 
             return CreatedAtAction(nameof(GetCustomerById), new { id = result.CustomerId }, result);
         }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<CustomerDto>> GetCustomerById(int id)
         {
             var customer = await service.GetCustomerByIdAsync(id);
 
-            if (customer == null)
-            {
-                return NotFound($"Customer with ID {id} not found.");
-            }
-
             return Ok(customer);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateCustomer(int id, [FromBody] UpdateCustomerDto dto)
+        {
+            await service.UpdateAsync(dto, id);
+
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteCustomer(int id)
+        {
+            await service.DeleteAsync(id);
+
+            return NoContent();
         }
     }
 }

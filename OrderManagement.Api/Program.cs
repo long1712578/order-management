@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using OrderManagement.Api.Middleware;
 using OrderManagement.Application.Interfaces;
 using OrderManagement.Application.Mappings;
 using OrderManagement.Application.Services;
@@ -37,6 +38,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseAuthorization();
 
