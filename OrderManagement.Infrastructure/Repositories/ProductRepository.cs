@@ -15,5 +15,12 @@ namespace OrderManagement.Infrastructure.Repositories
                         .Take(pageSize)
                         .ToListAsync();
         }
+
+        public async Task<Product?> GetByIdAsync(int productId)
+        {
+            return await context.Products
+                        .AsNoTracking()
+                        .FirstOrDefaultAsync(c => c.ProductId == productId);
+        }
     }
 }
