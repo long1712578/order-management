@@ -5,7 +5,8 @@ namespace OrderManagement.Application.Interfaces
 {
     public interface ICustomerService
     {
-        Task<List<CustomerDto>> GetAllAsync(int pageIndex, int pageSize);
+        Task<List<CustomerDto>> GetCustomersAsync(int pageIndex, int pageSize);
         Task<Customer> CreateCustomerAsync(CreateCustomerDto dto);
+        Task<CustomerDto?> GetCustomerByIdAsync(int customerId);
     }
 }

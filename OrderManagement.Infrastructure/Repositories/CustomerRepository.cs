@@ -16,27 +16,32 @@ namespace OrderManagement.Infrastructure.Repositories
             return customer;
         }
 
-        public Task DeleteAsync(Customer customer)
+        public async Task DeleteAsync(Customer customer)
         {
-            throw new NotImplementedException();
+            context.Customers.Remove(customer);
+            await context.SaveChangesAsync();
         }
 
         public async Task<List<Customer>> GetAllAsync(int pageNumber, int pageSize)
         {
             return await context.Customers
+                        .AsNoTracking()
                         .Skip((pageNumber - 1) * pageSize)
                         .Take(pageSize)
                         .ToListAsync();
         }
 
-        public Task<Customer?> GetByIdAsync(int id)
+        public async Task<Customer?> GetByIdAsync(int customerId)
         {
-            throw new NotImplementedException();
+            return await context.Customers
+                        .AsNoTracking()
+                        .FirstOrDefaultAsync(c => c.CustomerId == customerId);
         }
 
-        public Task UpdateAsync(Customer customer)
+        public async Task UpdateAsync(Customer customer)
         {
-            throw new NotImplementedException();
+            context.Customers.Update(customer);
+            await context.SaveChangesAsync();
         }
     }
 }

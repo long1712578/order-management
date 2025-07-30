@@ -15,7 +15,14 @@ namespace OrderManagement.Application.Services
             return await  repository.AddAsync(customer);
         }
 
-        public async Task<List<CustomerDto>> GetAllAsync(int pageIndex, int pageSize)
+        public async Task<CustomerDto?> GetCustomerByIdAsync(int customerId)
+        {
+            var customer = await repository.GetByIdAsync(customerId);
+
+            return mapper.Map<CustomerDto>(customer);
+        }
+
+        public async Task<List<CustomerDto>> GetCustomersAsync(int pageIndex, int pageSize)
         {
             var customers = await repository.GetAllAsync(pageIndex, pageSize);
             return mapper.Map<List<CustomerDto>>(customers);

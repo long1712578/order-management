@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using OrderManagement.Application.DTOs;
 using OrderManagement.Application.Interfaces;
-using OrderManagement.Application.Services;
 using OrderManagement.Domain.Entities;
 
 namespace OrderManagement.Api.Controllers
@@ -19,7 +17,7 @@ namespace OrderManagement.Api.Controllers
                 return BadRequest("Page index and page size must be greater than zero.");
             }
             
-            var customers = await service.GetAllAsync(pageIndex, pageSize);
+            var customers = await service.GetCustomersAsync(pageIndex, pageSize);
 
             return Ok(customers);
         }
@@ -31,12 +29,20 @@ namespace OrderManagement.Api.Controllers
                 return BadRequest(ModelState);
 
             var result = await service.CreateCustomerAsync(dto);
-            return CreatedAtAction(nameof(GetCustomer), new { id = result.CustomerId }, result);
+
+            return CreatedAtAction(nameof(GetCustomerById), new { id = result.CustomerId }, result);
         }
         [HttpGet("{id}")]
-        public async Task<ActionResult<Customer>> GetCustomer(int id)
+        public async Task<ActionResult<CustomerDto>> GetCustomerById(int id)
         {
-            return Ok();
+            var customer = await service.GetCustomerByIdAsync(id);
+
+            if (customer == null)
+            {
+                return NotFound($"Customer with ID {id} not found.");
+            }
+
+            return Ok(customer);
         }
     }
 }
