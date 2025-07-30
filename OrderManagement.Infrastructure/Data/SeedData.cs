@@ -9,11 +9,11 @@ namespace OrderManagement.Infrastructure.Data
             if (!context.Products.Any())
             {
                 var products = new List<Product>
-            {
-                new Product { Name = "Laptop", Price = 1500m },
-                new Product { Name = "Mouse", Price = 20m },
-                new Product { Name = "Keyboard", Price = 50m }
-            };
+                {
+                    new Product { Name = "Laptop", Price = 1500m },
+                    new Product { Name = "Mouse", Price = 20m },
+                    new Product { Name = "Keyboard", Price = 50m }
+                };
 
                 context.Products.AddRange(products);
                 await context.SaveChangesAsync();

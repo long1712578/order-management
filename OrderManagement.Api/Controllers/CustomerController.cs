@@ -13,10 +13,8 @@ namespace OrderManagement.Api.Controllers
         public async Task<IActionResult> GetCustomers(int pageIndex = 1, int pageSize = 10) 
         {
             if (pageIndex < 1 || pageSize < 1)
-            {
                 return BadRequest("Page index and page size must be greater than zero.");
-            }
-            
+
             var customers = await service.GetCustomersAsync(pageIndex, pageSize);
 
             return Ok(customers);
@@ -34,8 +32,6 @@ namespace OrderManagement.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(CustomerDto), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<CustomerDto>> GetCustomerById(int id)
         {
             var customer = await service.GetCustomerByIdAsync(id);

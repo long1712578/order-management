@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OrderManagement.Domain.Entities;
-using OrderManagement.Infrastructure.Data.Configurations;
 
 namespace OrderManagement.Infrastructure.Data
 {

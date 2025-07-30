@@ -11,6 +11,7 @@ namespace OrderManagement.Infrastructure.Repositories
         {
             context.Orders.Add(order);
             await context.SaveChangesAsync();
+
             return order.OrderId;
 
         }
@@ -18,20 +19,20 @@ namespace OrderManagement.Infrastructure.Repositories
         public async Task<Order?> GetByIdAsync(int orderId)
         {
             return await context.Orders
+                .AsNoTracking()
                 .Include(o => o.Customer)
                 .Include(o => o.OrderItems)
                 .ThenInclude(i => i.Product)
                 .FirstOrDefaultAsync(o => o.OrderId == orderId);
-
         }
 
         public async Task<List<Order>> GetFilteredOrdersAsync(OrderQuery filter)
         {
             var query = context.Orders
-            .Include(o => o.Customer)
-            .Include(o => o.OrderItems)
-            .ThenInclude(i => i.Product)
-            .AsQueryable();
+                .Include(o => o.Customer)
+                .Include(o => o.OrderItems)
+                .ThenInclude(i => i.Product)
+                .AsQueryable();
 
             if (filter.CustomerId.HasValue)
                 query = query.Where(x => x.CustomerId == filter.CustomerId);
@@ -45,6 +46,7 @@ namespace OrderManagement.Infrastructure.Repositories
             var total = await query.CountAsync();
 
             return await query
+                .AsNoTracking()
                 .Skip((filter.PageNumber - 1) * filter.PageSize)
                 .Take(filter.PageSize)
                 .ToListAsync();

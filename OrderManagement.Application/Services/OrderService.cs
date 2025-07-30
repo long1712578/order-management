@@ -12,6 +12,7 @@ namespace OrderManagement.Application.Services
         public async Task<int> CreateOrderAsync(CreateOrderDto dto)
         {
             var customer = await customerRepo.GetByIdAsync(dto.CustomerId);
+
             if (customer == null) throw new NotFoundException("Customer not found");
 
             var order = new Order
@@ -68,6 +69,7 @@ namespace OrderManagement.Application.Services
             };
 
             var orders = await orderRepo.GetFilteredOrdersAsync(query);
+
             return mapper.Map<List<OrderDto>>(orders);
         }
     }

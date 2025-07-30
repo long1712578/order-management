@@ -10,6 +10,7 @@ namespace OrderManagement.Application.Services
         public async Task<List<ProductDto>> GetProductsAsync(int pageIndex, int pageSize)
         {
             var products = await repository.GetAllAsync(pageIndex, pageSize);
+
             return mapper.Map<List<ProductDto>>(products);
         }
     }

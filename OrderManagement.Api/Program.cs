@@ -37,6 +37,7 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 // Seeding data
+// Add data for Products.
 using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;
 try

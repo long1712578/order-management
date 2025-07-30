@@ -19,6 +19,7 @@ namespace OrderManagement.Application.Services
         public async Task DeleteCustomerAsync(int customerId)
         {
             var customer = await repository.GetByIdAsync(customerId);
+
             if (customer == null) throw new NotFoundException("Not found");
 
             await repository.DeleteAsync(customer);
@@ -36,12 +37,14 @@ namespace OrderManagement.Application.Services
         public async Task<List<CustomerDto>> GetCustomersAsync(int pageIndex, int pageSize)
         {
             var customers = await repository.GetAllAsync(pageIndex, pageSize);
+
             return mapper.Map<List<CustomerDto>>(customers);
         }
 
         public async Task UpdateCustomerAsync(UpdateCustomerDto dto, int customerId)
         {
             var customer = await repository.GetByIdAsync(customerId);
+
             if (customer == null) throw new NotFoundException("Not found");
 
             customer.FullName = dto.FullName;
