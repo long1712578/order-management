@@ -1,4 +1,4 @@
-﻿namespace OrderManagement.Application.Common.Models
+﻿namespace OrderManagement.SharedKernel.Pagination
 {
     public class PagedResult<T>
     {

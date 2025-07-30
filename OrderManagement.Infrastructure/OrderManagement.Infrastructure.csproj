@@ -22,6 +22,7 @@
   <ItemGroup>
     <ProjectReference Include="..\OrderManagement.Application\OrderManagement.Application.csproj" />
     <ProjectReference Include="..\OrderManagement.Domain\OrderManagement.Domain.csproj" />
+    <ProjectReference Include="..\OrderManagement.SharedKernel\OrderManagement.SharedKernel.csproj" />
   </ItemGroup>
 
 </Project>

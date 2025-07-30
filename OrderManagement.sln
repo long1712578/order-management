@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderManagement.Infrastruct
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderManagement.Api", "OrderManagement.Api\OrderManagement.Api.csproj", "{BAA3D304-EB50-426B-A3A2-39EC4860EB1F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderManagement.SharedKernel", "OrderManagement.SharedKernel\OrderManagement.SharedKernel.csproj", "{DD6C0444-D466-434D-9405-C4215FA0A35C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,8 +35,15 @@ Global
 		{BAA3D304-EB50-426B-A3A2-39EC4860EB1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BAA3D304-EB50-426B-A3A2-39EC4860EB1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BAA3D304-EB50-426B-A3A2-39EC4860EB1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD6C0444-D466-434D-9405-C4215FA0A35C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD6C0444-D466-434D-9405-C4215FA0A35C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD6C0444-D466-434D-9405-C4215FA0A35C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD6C0444-D466-434D-9405-C4215FA0A35C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FA3C8C28-C670-4739-B522-FA53AE536D5B}
 	EndGlobalSection
 EndGlobal
