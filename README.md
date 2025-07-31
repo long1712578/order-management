@@ -152,7 +152,7 @@ Unit tests cover scenarios such as:
 2. Set the environment variable **{{base_url}}**:
 - For local testing: **https://localhost:5001**
 - Or use your deployment server URL
-3. - Try out key features:
+3. Try out key features:
 - Create new orders
 - Add customers
 - Retrieve product listings
