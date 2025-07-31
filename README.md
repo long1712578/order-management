@@ -145,7 +145,7 @@ Unit tests cover scenarios such as:
 - Creating a customer
 - Handling mapping errors
 - Deleting a non-existent customer
-### Step 4: Postman Collection
+### Step 5: Postman Collection
 > To easily test the API endpoints, a ready-to-use Postman Collection has been included in the project: **OrderManagementAPI.postman_collection.json**
 #### How to use:
 1. Open Postman → Click Import → Select the **.json** file located inside the **Postman/** folder.
