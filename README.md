@@ -130,3 +130,18 @@ Sau khi thực hiện thành công, cơ sở dữ liệu `OrderManagementDb` s�
 cd OrderManagement.Api
 dotnet run
 ```
+### Step 4: Testing
+> Unit tests are written using **xUnit** and **Moq** to ensure business logic is correct and maintainable.
+#### Using Visual Studio
+1. Open the solution in Visual Studio.
+2. Right-click the `OrderManagement.Tests` project.
+3. Select __Run Tests__ or use the __Test Explorer__ window.
+
+Test results will be displayed in the terminal or the Visual Studio Test Explorer.
+
+---
+
+Unit tests cover scenarios such as:
+- Creating a customer
+- Handling mapping errors
+- Deleting a non-existent customer

@@ -8,7 +8,6 @@ namespace OrderManagement.Api.Controllers
     [Route("api/orders")]
     public class OrderController(IOrderService service) : ControllerBase
     {
-
         [HttpPost]
         public async Task<IActionResult> CreateOrder([FromBody] CreateOrderDto dto)
         {
