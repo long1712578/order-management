@@ -93,10 +93,10 @@ cd order-management
 ```
 ### Step 2: Apply Database Migration
 
-> Áp dụng cho cả người dùng Visual Studio và dòng lệnh `dotnet ef`.
+> Both Visual Studio and command line `dotnet ef`.
 
-#### 📌 Cấu hình chuỗi kết nối
-Kiểm tra lại `appsettings.json` trong dự án `OrderManagement.Api` đã khai báo đúng connection string:
+#### 📌 Config connect string
+Check `appsettings.json` in project `OrderManagement.Api` connection string:
 
 ```json
 "ConnectionStrings": {
@@ -104,25 +104,25 @@ Kiểm tra lại `appsettings.json` trong dự án `OrderManagement.Api` đã kh
 }
 ```
 
-#### ✅ Cách 1: Dùng Package Manager Console (Visual Studio)
+#### ✅ Option 1: Use Package Manager Console (Visual Studio)
 
-1. Mở **Tools > NuGet Package Manager > Package Manager Console**
-2. Đảm bảo `Default project` là `OrderManagement.Infrastructure`
-3. Chạy lần lượt:
+1. Open **Tools > NuGet Package Manager > Package Manager Console**
+2. Ensure `Default project` là `OrderManagement.Infrastructure`
+3. Run step by step:
 
 ```powershell
 Add-Migration InitialCreate
 Update-Database
 ```
 
-#### ✅ Cách 2: Dùng .NET CLI
+#### ✅ Option 2: Use .NET CLI
 
 ```bash
 dotnet ef migrations add InitialCreate --project OrderManagement.Infrastructure --startup-project OrderManagement.Api
 dotnet ef database update --project OrderManagement.Infrastructure --startup-project OrderManagement.Api
 ```
 
-Sau khi thực hiện thành công, cơ sở dữ liệu `OrderManagementDb` sẽ được tạo trong SQL Server chứa đầy đủ bảng (Customers, Products, Orders, OrderItems).
+After success, database `OrderManagementDb` will create in SQL Server include tables (Customers, Products, Orders, OrderItems).
 
 ### Step 3: Run the API
 
@@ -145,3 +145,18 @@ Unit tests cover scenarios such as:
 - Creating a customer
 - Handling mapping errors
 - Deleting a non-existent customer
+### Step 4: Postman Collection
+> To easily test the API endpoints, a ready-to-use Postman Collection has been included in the project: **OrderManagementAPI.postman_collection.json**
+#### How to use:
+1. Open Postman → Click Import → Select the **.json** file located inside the **Postman/** folder.
+2. Set the environment variable **{{base_url}}**:
+- For local testing: **https://localhost:5001**
+- Or use your deployment server URL
+3. - Try out key features:
+- Create new orders
+- Add customers
+- Retrieve product listings
+- View order details
+
+
+
